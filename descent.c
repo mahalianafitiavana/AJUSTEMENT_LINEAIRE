@@ -4,23 +4,54 @@
 
 float f (float x);
 float df(float x);
+int menu();
 void gplot (float x0, float alpha, float xmin , float xmax, float ymin, float ymax);
+int whatToDo (float x0, float alpha, float xmin , float xmax, float ymin, float ymax);
 int main(){
 
     printf("Trouver le point minimal par la méthode de la descente du gradiant\n");
     float x0 = 6, alpha = 0.2 , xmin = -6,xmax= 8, ymin = -2,ymax = 4;
-        gplot(x0,alpha,xmin,xmax,ymin,ymax);
-    /* char rep[2] = "o";
-    while (1) {
-        printf("Entrez alpha : ");
-        scanf("%f ", &alpha);
-        printf("Faure un autre essai? (o/n) : ");scanf("%s",rep);
-        if (strcmp(rep,"o") != 0 ) break;        
-
-    } */
-    
-
+      //  gplot(x0,alpha,xmin,xmax,ymin,ymax);
+    int choix  = 3;    
+    while (choix) {   
+        choix = whatToDo (x0, alpha, xmin ,  xmax,  ymin,  ymax);
+    }  
     return 0;
+}
+int whatToDo (float x0, float alpha, float xmin , float xmax, float ymin, float ymax){
+    int choix = 3;
+    choix = menu();
+    switch (choix){
+        case 3:
+            gplot(x0,alpha,xmin,xmax,ymin,ymax);
+            break;
+        case 0:
+            break;
+        case 2:
+            printf("Inserer le Nouveau pas alpha:"); scanf("%f",&alpha);
+            gplot(x0,alpha,xmin,xmax,ymin,ymax);
+            break;
+        case 1:
+            printf("Inserer le Nouveau Point initial x0:"); scanf("%f",&x0);
+            gplot(x0,alpha,xmin,xmax,ymin,ymax);
+            break;     
+        default:
+            choix = 0;
+            break;
+    }
+    return choix;
+}
+int menu (){
+    int choix = 0;
+    printf("Point initial x0=6 Pas alpha=0.5\n");
+    printf("Tapez:\n");
+    printf("\t 1 changer le point initial\n");
+    printf("\t 2 changer le pas \n");
+    printf("\t 3 tracez\n");
+    printf("\t 0 pour arreter ce programme \n");
+    printf("Votre choix SVP: "); scanf("%d",&choix);
+    // traitement en char et non tout de suite en int 
+    return choix;
 }
 
 void gplot (float x0, float alpha, float xmin , float xmax, float ymin, float ymax){
